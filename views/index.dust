@@ -1,0 +1,128 @@
+{>"layout" /}
+
+{<body}
+	<h4>View Book</h4>
+    {#books}
+    	<div>
+    		<div class="well">
+    		<h4>
+    			{name}
+    			<button class="btn btn-default pull-right" data-toggle="collapse" href="#book_{id}" aria-expanded="false" aria-controls="book_{id}">
+    				<span class="glyphicon glyphicon-triangle-bottom" aria-hidden="true"> View </span>
+    			</button>
+    		</h4>
+
+    		<div class="collapse" id="book_{id}">
+    			<br />
+    			<p><strong>Title: </strong>{title}</p>
+    			<p><strong>Description: </strong>{description}</p>
+    			<hr />
+    			<button class="btn btn-default edit-book" data-toggle="modal" data-target="#editFormModal" 
+    			data-id="{id}" 
+    			data-name="{name}"
+    			data-title="{title}"
+    			data-description="{description}">
+    				<span class="glyphicon glyphicon-edit" aria-hidden="true"> Edit </span>
+    			</button>
+    			<button class="btn btn-danger delete-book" data-id={id}>
+    				<span class="glyphicon glyphicon-remove" aria-hidden="true"> Delete </span>
+    			</button>
+    		</div>
+    	</div>
+    	</div>
+    {/books}
+    <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#formModal"> Add book </button>
+	
+	<br />
+    <br />
+
+    <!-- Add book modal -->
+	<div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="formModalLabel">
+	  	<div class="modal-dialog" role="document">
+	    	<div class="modal-content">
+	      		<form method="post" action="/addbook">
+	      			<div class="modal-header">
+	        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        		<h4 class="modal-title" id="myModalLabel">Add Book</h4>
+		      		</div>
+		    		<div class="modal-body">
+		        		<div class="form-group">
+		        			<label>Book Name</label>
+		        			<input type="text" class="form-control" name="name">
+		        		</div>
+		        		<div class="form-group">
+		        			<label>Book Title</label>
+		        			<input type="text" class="form-control" name="title">
+		        		</div>
+		        		<div class="form-group">
+		        			<label>Book Description</label>
+		        			<textarea class="form-control vertical-resize" name="description"></textarea>
+		        		</div>
+			    	</div>
+			      	<div class="modal-footer">
+			        	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			        	<input type="submit" class="btn btn-primary" name="submit" value="Save" />
+			      	</div>
+	      		</form>
+		    </div>
+		</div>
+	</div>
+    
+    <!-- Edit book modal -->
+	<div class="modal fade" id="editFormModal" tabindex="-1" role="dialog" aria-labelledby="editFormModalLabel">
+	  	<div class="modal-dialog" role="document">
+	    	<div class="modal-content">
+	      		<form method="post" action="/editbook">
+	      			<input type="hidden" name="id" id="edit-book-id">
+	      			<div class="modal-header">
+	        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        		<h4 class="modal-title" id="myModalLabel">Edit Book</h4>
+		      		</div>
+		    		<div class="modal-body">
+		        		<div class="form-group">
+		        			<label>Book Name</label>
+		        			<input type="text" class="form-control" name="name" id="edit-book-name">
+		        		</div>
+		        		<div class="form-group">
+		        			<label>Book Title</label>
+		        			<input type="text" class="form-control" name="title" id="edit-book-title">
+		        		</div>
+		        		<div class="form-group">
+		        			<label>Book Description</label>
+		        			<textarea class="form-control vertical-resize" name="description" id="edit-book-description"></textarea>
+		        		</div>
+			    	</div>
+			      	<div class="modal-footer">
+			        	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			        	<input type="submit" class="btn btn-primary" name="submit" value="Save" />
+			      	</div>
+	      		</form>
+		    </div>
+		</div>
+	</div>
+    
+	<div>
+    	<table>
+	    	
+    		<tr class="title">
+    			<td>Name</td>
+    			<td>Title</td>
+    			<td>Description</td>
+    		</tr>
+	    		{#books}
+		    		<tr>
+			    		<td>{name}</td>
+			    		<td>{title}</td>
+			    		<td>{description}</td>
+		    		</tr>
+	    		{/books}
+    	</table>
+	</div>
+
+    <br />
+    <br />
+	<button type="button" id="show-json" class="btn btn-primary pull-left"> Show JSON </button>
+	<p>{datajson.title}</p>
+	
+    
+{/body}
